@@ -15,6 +15,7 @@ import WhoShouldAttend from "./components/WhoShouldAttend";
 import Testimonials from "./components/Testimonials";
 import StickyCTA from "./components/StickyCTA";
 import ParentsNote from "./components/ParentsNote";
+
 const Home = () => {
   const registerRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +28,7 @@ const Home = () => {
       <StickyCTA />
       <AnnouncementBar />
       <Navbar onRegisterClick={scrollToRegister} />
-      <HeroSection ref={registerRef} onRegisterClick={scrollToRegister} />
+      <HeroSection onRegisterClick={scrollToRegister} />
       <SocialProof />
       <PainPoints />
       <Benefits />
@@ -36,9 +37,12 @@ const Home = () => {
       <Testimonials />
       <EventDetails />
       <FAQ />
-      <RegisterSection ref={registerRef} />
+
+      <div ref={registerRef}>
+        <RegisterSection />
+      </div>
+
       <ParentsNote onRegisterClick={scrollToRegister} />
-      {/* <Footer /> */}
     </div>
   );
 };
