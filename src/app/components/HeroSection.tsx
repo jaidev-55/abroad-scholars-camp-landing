@@ -78,7 +78,8 @@ const HeroSection = () => {
             <p className="text-gray-500 text-sm sm:text-base md:text-[1.075rem] leading-relaxed mb-5 sm:mb-7 max-w-lg mx-auto md:mx-0">
               Meet top international university representatives, explore your
               study options, and get expert guidance on admissions, visas,
-              IELTS, and education loans — all in one place.
+              IELTS, and education loans all in one place. Apply for the
+              September 2026 intake with trusted guidance since 2006.
             </p>
 
             {/* Country flags */}
@@ -86,14 +87,14 @@ const HeroSection = () => {
               {countries.map((country) => (
                 <span
                   key={country.code}
-                  className="bg-white border border-gray-200 rounded-lg px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-gray-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex items-center gap-1.5"
+                  className="bg-white border border-gray-200 rounded-lg px-2.5 py-1 flex items-center gap-1.5 text-xs font-semibold text-gray-700"
                 >
                   <ReactCountryFlag
-                    countryCode="GB"
+                    countryCode={country.code}
                     svg
-                    style={{ width: "1.2em", height: "1.2em" }}
-                    title="United Kingdom"
-                    aria-label="United Kingdom"
+                    style={{ width: "16px", height: "12px" }}
+                    title={country.label}
+                    aria-label={country.label}
                   />
                   {country.label}
                 </span>
