@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { Navbar } from "./components/Navbar";
-import { HeroSection } from "./components/HeroSection";
 import { SocialProof } from "./components/SocialProof";
 import { HowItWorks } from "./components/HowItWorks";
 import { RegisterSection } from "./components/RegisterSection";
@@ -15,6 +14,7 @@ import WhoShouldAttend from "./components/WhoShouldAttend";
 import Testimonials from "./components/Testimonials";
 import StickyCTA from "./components/StickyCTA";
 import ParentsNote from "./components/ParentsNote";
+import HeroSection from "./components/HeroSection";
 
 const Home = () => {
   const registerRef = useRef<HTMLDivElement>(null);
@@ -28,7 +28,7 @@ const Home = () => {
       <StickyCTA />
       <AnnouncementBar />
       <Navbar onRegisterClick={scrollToRegister} />
-      <HeroSection onRegisterClick={scrollToRegister} />
+      <HeroSection />
       <SocialProof />
       <PainPoints />
       <Benefits />

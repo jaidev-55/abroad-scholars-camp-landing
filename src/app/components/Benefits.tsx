@@ -20,7 +20,7 @@ interface Benefit {
 const benefits: Benefit[] = [
   {
     icon: FaUniversity,
-    title: "5+ University Reps",
+    title: "15+ University Reps",
     desc: "Meet representatives from top international universities face-to-face",
     color: "text-blue-600",
     bg: "bg-blue-50",
@@ -55,8 +55,8 @@ const benefits: Benefit[] = [
   },
   {
     icon: FaHandshake,
-    title: "Offer Letter Help",
-    desc: "Already have an offer? Get guidance on next steps",
+    title: "Get Spot Offers in 3 Hours",
+    desc: "Walk in with your documents and receive admission offers within 3 hours. Our experts will guide you on what to do next  instantly.",
     color: "text-rose-600",
     bg: "bg-rose-50",
   },

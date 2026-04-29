@@ -6,7 +6,7 @@ import { Icon } from "./Icon";
 export function Navbar({ onRegisterClick }: { onRegisterClick: () => void }) {
   return (
     <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100">
-      <div className="max-w-7xl mx-auto   py-2 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto py-2 flex items-center justify-center md:justify-between relative">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Image
             src="/images/logo.webp"

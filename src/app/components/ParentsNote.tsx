@@ -29,7 +29,7 @@ const ParentsNote = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
 
             <button
               onClick={onRegisterClick}
-              className="group w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold py-3.5 px-6 sm:px-8 rounded-xl transition-all duration-200 shadow-md shadow-blue-600/15 hover:shadow-lg hover:shadow-blue-600/20 inline-flex items-center justify-center gap-2 text-sm"
+              className="group hidden  w-full sm:w-auto bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold py-3.5 px-6 sm:px-8 rounded-xl transition-all duration-200 shadow-md shadow-blue-600/15 hover:shadow-lg hover:shadow-blue-600/20 md:inline-flex items-center justify-center gap-2 text-sm"
             >
               Register Together — It&apos;s Free
               <Icon
