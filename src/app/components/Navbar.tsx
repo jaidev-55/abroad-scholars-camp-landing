@@ -10,7 +10,7 @@ export function Navbar({ onRegisterClick }: { onRegisterClick: () => void }) {
         <Link href="/" className="shrink-0" aria-label="Home">
           <Image
             src="/images/logo.webp"
-            alt="Abroad Scholars"
+            alt="Abroad Scholars Logo"
             width={120}
             height={50}
             className="h-12 w-auto object-cover"
