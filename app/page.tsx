@@ -10,7 +10,6 @@ import Benefits from "./components/Benefits";
 import AnnouncementBar from "./components/AnnouncementBar";
 import EventDetails from "./components/EventDetails";
 import FAQ from "./components/FAQ";
-import Footer from "./components/Footer";
 import PainPoints from "./components/PainPoints";
 import WhoShouldAttend from "./components/WhoShouldAttend";
 import Testimonials from "./components/Testimonials";
@@ -39,7 +38,7 @@ const Home = () => {
       <FAQ />
       <RegisterSection ref={registerRef} />
       <ParentsNote onRegisterClick={scrollToRegister} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
