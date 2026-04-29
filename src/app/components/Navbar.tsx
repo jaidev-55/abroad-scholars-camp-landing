@@ -6,14 +6,14 @@ import { Icon } from "./Icon";
 export function Navbar({ onRegisterClick }: { onRegisterClick: () => void }) {
   return (
     <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4  py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto   py-2 flex items-center justify-between">
         <Link href="/" className="shrink-0" aria-label="Home">
           <Image
             src="/images/logo.webp"
             alt="Abroad Scholars"
             width={120}
-            height={40}
-            className="h-8 w-auto"
+            height={50}
+            className="h-12 w-auto object-cover"
             priority
           />
         </Link>
