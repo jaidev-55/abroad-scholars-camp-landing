@@ -89,9 +89,11 @@ const HeroSection = () => {
                   className="bg-white border border-gray-200 rounded-lg px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-gray-700 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex items-center gap-1.5"
                 >
                   <ReactCountryFlag
-                    countryCode={country.code}
+                    countryCode="GB"
                     svg
-                    style={{ width: "16px", height: "12px" }}
+                    style={{ width: "1.2em", height: "1.2em" }}
+                    title="United Kingdom"
+                    aria-label="United Kingdom"
                   />
                   {country.label}
                 </span>
