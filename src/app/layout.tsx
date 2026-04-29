@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     "IELTS",
     "visa help",
   ],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Free Study Abroad Education Fair — May 16, Coimbatore",
     description:
