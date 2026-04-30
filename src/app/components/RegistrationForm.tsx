@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   FaCheckCircle,
   FaArrowRight,
@@ -11,8 +12,10 @@ import {
 } from "react-icons/fa";
 import { Icon } from "./Icon";
 import { FiChevronDown, FiClock, FiGlobe } from "react-icons/fi";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -20,75 +23,83 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
     course: "",
     country: "",
   });
-  const [submitted, setSubmitted] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-
+    if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.phone.trim()) {
       newErrors.phone = "WhatsApp number is required";
     } else if (!/^\+?\d{10,15}$/.test(formData.phone.replace(/\s/g, ""))) {
       newErrors.phone = "Enter a valid phone number";
     }
-
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Enter a valid email address";
     }
-
     return newErrors;
   };
 
   const handleBlur = (field: string) => {
     setFocusedField(null);
     setTouched((prev) => ({ ...prev, [field]: true }));
-
-    // Validate single field on blur
     const newErrors = validate();
-    setErrors((prev) => ({
-      ...prev,
-      [field]: newErrors[field] || "",
-    }));
+    setErrors((prev) => ({ ...prev, [field]: newErrors[field] || "" }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validate();
     setErrors(newErrors);
     setTouched({ name: true, phone: true, email: true });
+    if (Object.keys(newErrors).length > 0) return;
 
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted:", formData);
-      setSubmitted(true);
+    setIsLoading(true);
+    setSubmitError("");
+
+    try {
+      const selectedSlot =
+        (document.querySelector('select[name="slot"]') as HTMLSelectElement)
+          ?.value ?? "";
+
+      const res = await fetch(
+        "https://api.abroadscholars.in/webhooks/landing-page",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            token: "abroad_scholars_456",
+            fullName: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            country: formData.country,
+            notes: `Study Fair Registration — May 16, Coimbatore${selectedSlot ? ` — Slot: ${selectedSlot}` : ""}`,
+            category: "ADMISSION",
+          }),
+        },
+      );
+
+      if (!res.ok) throw new Error("Registration failed");
+
+      // Navigate to thank-you page with details for pass generation
+      const firstName = formData.name.split(" ")[0];
+      const params = new URLSearchParams({
+        name: firstName,
+        fullName: formData.name,
+        phone: formData.phone,
+      });
+      router.push(`/thank-you?${params.toString()}`);
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  if (submitted) {
-    return (
-      <div className="text-center py-10 px-4">
-        <div className="relative w-16 h-16 mx-auto mb-5">
-          <div className="absolute inset-0 bg-emerald-100 rounded-full animate-ping opacity-30" />
-          <div className="relative w-16 h-16 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center">
-            <Icon icon={FaCheckCircle} className="text-emerald-500 text-2xl" />
-          </div>
-        </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">
-          You&apos;re Registered!
-        </h3>
-        <p className="text-gray-500 text-sm leading-relaxed">
-          We&apos;ll send you a confirmation on WhatsApp shortly.
-        </p>
-      </div>
-    );
-  }
 
   const getFieldBorder = (field: string) => {
     if (touched[field] && errors[field]) return "border-red-400 bg-red-50/30";
@@ -138,10 +149,8 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
         <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
           WhatsApp Number
         </label>
-
         <div className="relative">
           <FaWhatsapp className="absolute left-4 top-1/2 -translate-y-1/2 text-green-500 text-sm" />
-
           <input
             type="tel"
             placeholder="Enter your WhatsApp number"
@@ -163,12 +172,9 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
             }}
             onFocus={() => setFocusedField("phone")}
             onBlur={() => handleBlur("phone")}
-            className={`w-full pl-11 pr-4 py-3 rounded-xl border text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm ${getFieldBorder(
-              "phone",
-            )}`}
+            className={`w-full pl-11 pr-4 py-3 rounded-xl border text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm ${getFieldBorder("phone")}`}
           />
         </div>
-
         {touched.phone && errors.phone && (
           <p className="text-red-500 text-xs font-medium mt-1.5 flex items-center gap-1">
             <span className="text-[10px]">→</span> {errors.phone}
@@ -218,14 +224,17 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
 
       {!compact && (
         <>
-          {/* Course */}
+          {/* Time Slot */}
           <div>
-            <label className="block text-xs font-semibold text-gray-500 mb-2 tracking-wide">
-              SELECT TIME SLOT
+            <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
+              Select Time Slot
             </label>
-
             <div className="relative">
-              <select className="w-full appearance-none bg-gray-50 border border-gray-200 rounded-xl px-10 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <FiClock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <select
+                name="slot"
+                className="w-full appearance-none bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl pl-10 pr-10 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 focus:bg-white transition-all"
+              >
                 <option value="">Choose your slot</option>
                 <option>10:00 AM – 11:00 AM</option>
                 <option>11:00 AM – 12:00 PM</option>
@@ -235,11 +244,6 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
                 <option>3:00 PM – 4:00 PM</option>
                 <option>4:00 PM – 5:00 PM</option>
               </select>
-
-              {/* LEFT ICON */}
-              <FiClock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-
-              {/* RIGHT ARROW */}
               <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
             </div>
           </div>
@@ -282,16 +286,33 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
         </>
       )}
 
+      {/* Error message */}
+      {submitError && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-center">
+          <p className="text-red-600 text-sm font-medium">{submitError}</p>
+        </div>
+      )}
+
       {/* Submit */}
       <button
         type="submit"
-        className="group w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-blue-600/15 hover:shadow-lg hover:shadow-blue-600/20 active:scale-[0.98] flex items-center justify-center gap-2.5 text-sm tracking-wide mt-2"
+        disabled={isLoading}
+        className="group w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md shadow-blue-600/15 hover:shadow-lg hover:shadow-blue-600/20 active:scale-[0.98] flex items-center justify-center gap-2.5 text-sm tracking-wide mt-2"
       >
-        Register Now It&apos;s Free
-        <Icon
-          icon={FaArrowRight}
-          className="text-xs transition-transform duration-200 group-hover:translate-x-0.5"
-        />
+        {isLoading ? (
+          <>
+            <AiOutlineLoading3Quarters className="animate-spin text-sm" />
+            Registering...
+          </>
+        ) : (
+          <>
+            Register Now It&apos;s Free
+            <Icon
+              icon={FaArrowRight}
+              className="text-xs transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+          </>
+        )}
       </button>
     </form>
   );
