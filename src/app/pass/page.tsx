@@ -68,7 +68,7 @@ function PassContent() {
       setPassId(`AS-${Date.now().toString(36).toUpperCase().slice(-6)}`);
     }
   }, [passId]);
-  const qrUrl = searchParams.get("qr") || "";
+  const qrUrl = searchParams.get("qr") || "/images/location_qr.png";
 
   const ticketRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
@@ -83,30 +83,21 @@ function PassContent() {
     if (!ticketRef.current) return;
     setDownloading(true);
     try {
-      const html2canvas = (await import("html2canvas")).default;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const canvas = await (html2canvas as any)(ticketRef.current, {
-        scale: 3,
+      const { toPng } = await import("html-to-image");
+      const dataUrl = await toPng(ticketRef.current, {
+        pixelRatio: 3,
         backgroundColor: "#ffffff",
-        useCORS: true,
-        logging: false,
-        allowTaint: false,
-        onclone: (clonedDoc: Document) => {
-          // Replace logo with text to avoid CORS failure
-          clonedDoc.querySelectorAll("img").forEach((img) => {
-            if ((img as HTMLImageElement).src.includes("logo")) {
-              const span = clonedDoc.createElement("span");
-              span.textContent = "Abroad Scholars";
-              span.style.cssText =
-                "color:white;font-weight:bold;font-size:14px;";
-              img.parentNode?.replaceChild(span, img);
-            }
-          });
+        skipFonts: false,
+        filter: (node) => {
+          if (node instanceof HTMLImageElement && node.src.includes("logo")) {
+            return false;
+          }
+          return true;
         },
       });
       const link = document.createElement("a");
       link.download = `AbroadScholars-Pass-${passId}.png`;
-      link.href = canvas.toDataURL("image/png");
+      link.href = dataUrl;
       link.click();
     } catch (err) {
       console.error("Download failed:", err);
