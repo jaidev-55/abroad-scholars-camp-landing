@@ -73,7 +73,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans"
+      >
         {children}
         <WhatsAppButton />
       </body>

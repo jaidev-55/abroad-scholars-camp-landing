@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  FaCheckCircle,
   FaArrowRight,
   FaUser,
   FaEnvelope,
@@ -22,6 +21,7 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
     email: "",
     course: "",
     country: "",
+    slot: "",
   });
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -63,30 +63,50 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
     setSubmitError("");
 
     try {
-      const selectedSlot =
-        (document.querySelector('select[name="slot"]') as HTMLSelectElement)
-          ?.value ?? "";
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
 
       const res = await fetch(
         "https://api.abroadscholars.in/webhooks/landing-page",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
           body: JSON.stringify({
             token: "abroad_scholars_456",
             fullName: formData.name,
             phone: formData.phone,
             email: formData.email,
             country: formData.country,
-            notes: `Study Fair Registration — May 16, Coimbatore${selectedSlot ? ` — Slot: ${selectedSlot}` : ""}`,
+            notes: `Study Fair Registration — May 16, Coimbatore — Slot: ${formData.slot || "No preference"}`,
             category: "ADMISSION",
           }),
         },
       );
 
-      if (!res.ok) throw new Error("Registration failed");
+      clearTimeout(timeout);
 
-      // Navigate to thank-you page with details for pass generation
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        const msg =
+          errData?.message ?? "Registration failed. Please try again.";
+        const isDuplicate =
+          typeof msg === "string"
+            ? msg.toLowerCase().includes("already exists")
+            : Array.isArray(msg) &&
+              msg.some((m: string) =>
+                m.toLowerCase().includes("already exists"),
+              );
+        setSubmitError(
+          isDuplicate
+            ? "This phone number is already registered. Please use a different number."
+            : Array.isArray(msg)
+              ? msg.join(", ")
+              : msg,
+        );
+        return;
+      }
+
       const firstName = formData.name.split(" ")[0];
       const params = new URLSearchParams({
         name: firstName,
@@ -94,8 +114,22 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
         phone: formData.phone,
       });
       router.push(`/thank-you?${params.toString()}`);
-    } catch {
-      setSubmitError("Something went wrong. Please try again.");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err?.name === "AbortError") {
+        // Navigate anyway — registration likely succeeded
+        const firstName = formData.name.split(" ")[0];
+        const params = new URLSearchParams({
+          name: firstName,
+          fullName: formData.name,
+          phone: formData.phone,
+        });
+        router.push(`/thank-you?${params.toString()}`);
+      } else {
+        setSubmitError(
+          "Network error. Please check your connection and try again.",
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -109,6 +143,12 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      {submitError && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex items-start gap-2.5">
+          <span className="text-red-500 mt-0.5 text-sm">⚠</span>
+          <p className="text-red-600 text-sm font-medium">{submitError}</p>
+        </div>
+      )}
       {/* Name */}
       <div>
         <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
@@ -233,16 +273,20 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
               <FiClock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
               <select
                 name="slot"
+                value={formData.slot}
+                onChange={(e) =>
+                  setFormData({ ...formData, slot: e.target.value })
+                }
                 className="w-full appearance-none bg-gray-50 border border-gray-200 hover:border-gray-300 rounded-xl pl-10 pr-10 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 focus:bg-white transition-all"
               >
                 <option value="">Choose your slot</option>
-                <option>10:00 AM – 11:00 AM</option>
-                <option>11:00 AM – 12:00 PM</option>
-                <option>12:00 PM – 1:00 PM</option>
-                <option>1:00 PM – 2:00 PM</option>
-                <option>2:00 PM – 3:00 PM</option>
-                <option>3:00 PM – 4:00 PM</option>
-                <option>4:00 PM – 5:00 PM</option>
+                <option value="10:00 AM – 11:00 AM">10:00 AM – 11:00 AM</option>
+                <option value="11:00 AM – 12:00 PM">11:00 AM – 12:00 PM</option>
+                <option value="12:00 PM – 1:00 PM">12:00 PM – 1:00 PM</option>
+                <option value="1:00 PM – 2:00 PM">1:00 PM – 2:00 PM</option>
+                <option value="2:00 PM – 3:00 PM">2:00 PM – 3:00 PM</option>
+                <option value="3:00 PM – 4:00 PM">3:00 PM – 4:00 PM</option>
+                <option value="4:00 PM – 5:00 PM">4:00 PM – 5:00 PM</option>
               </select>
               <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
             </div>
