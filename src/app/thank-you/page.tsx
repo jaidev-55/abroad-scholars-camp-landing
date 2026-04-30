@@ -142,7 +142,7 @@ function AnimatedCheck() {
         className={`absolute inset-0 rounded-full bg-emerald-50 transition-all duration-1000 delay-300 ${show ? "scale-[1.6] opacity-0" : "scale-100 opacity-40"}`}
       />
       <div
-        className={`relative w-24 h-24 rounded-full flex items-center justify-center transition-all duration-700 ease-out ${show ? "bg-gradient-to-br from-emerald-400 to-emerald-500 scale-100 shadow-xl shadow-emerald-200" : "bg-emerald-100 scale-50"}`}
+        className={`relative w-24 h-24 rounded-full flex items-center justify-center transition-all duration-700 ease-out ${show ? "bg-linear-to-br from-emerald-400 to-emerald-500 scale-100 shadow-xl shadow-emerald-200" : "bg-emerald-100 scale-50"}`}
       >
         <svg
           className={`w-10 h-10 text-white transition-all duration-500 delay-500 ${show ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
@@ -258,7 +258,7 @@ function ThankYouContent() {
               </p>
               <div className="space-y-3.5">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
                     <Icon
                       icon={FaCalendarAlt}
                       className="text-blue-500 text-xs"
@@ -272,7 +272,7 @@ function ThankYouContent() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3.5">
-                  <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
                     <Icon icon={FaClock} className="text-amber-500 text-xs" />
                   </div>
                   <div>
@@ -283,7 +283,7 @@ function ThankYouContent() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3.5">
-                  <div className="w-9 h-9 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
                     <Icon
                       icon={FaMapMarkerAlt}
                       className="text-rose-500 text-xs"

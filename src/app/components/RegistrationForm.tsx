@@ -67,7 +67,7 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
       const timeout = setTimeout(() => controller.abort(), 8000);
 
       const res = await fetch(
-        "https://api.abroadscholars.in/webhooks/landing-page",
+        `${process.env.NEXT_PUBLIC_API_URL}/webhooks/landing-page`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

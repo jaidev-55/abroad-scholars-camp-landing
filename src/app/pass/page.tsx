@@ -163,7 +163,7 @@ function PassContent() {
             {/* Top Section — Event Info */}
             <div className="bg-white rounded-t-2xl border border-gray-200 border-b-0 overflow-hidden">
               {/* Blue header */}
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-5 text-white relative overflow-hidden">
+              <div className="bg-linear-to-r from-blue-600 to-blue-700 px-6 py-5 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
                 <div className="relative">
@@ -189,7 +189,7 @@ function PassContent() {
               {/* Event Details */}
               <div className="px-6 py-5 space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
                     <Icon
                       icon={FaCalendarAlt}
                       className="text-blue-500 text-xs"
@@ -200,7 +200,7 @@ function PassContent() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0">
                     <Icon icon={FaClock} className="text-amber-500 text-xs" />
                   </div>
                   <p className="text-gray-900 font-semibold text-sm">
@@ -208,7 +208,7 @@ function PassContent() {
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
                     <Icon
                       icon={FaMapMarkerAlt}
                       className="text-rose-500 text-xs"
@@ -226,10 +226,10 @@ function PassContent() {
 
             {/* ─── Tear Line ──────────────────────────────────────── */}
             <div className="relative h-6 flex items-center">
-              <div className="absolute -left-3 w-6 h-6 bg-gradient-to-b from-gray-100 to-gray-50 rounded-full border border-gray-200 z-10" />
+              <div className="absolute -left-3 w-6 h-6 bg-linear-to-b from-gray-100 to-gray-50 rounded-full border border-gray-200 z-10" />
               <div className="w-full border-t-2 border-dashed border-gray-200 mx-3" />
-              <div className="absolute -right-3 w-6 h-6 bg-gradient-to-b from-gray-100 to-gray-50 rounded-full border border-gray-200 z-10" />
-              <div className="absolute inset-0 bg-white -z-0 border-x border-gray-200" />
+              <div className="absolute -right-3 w-6 h-6 bg-linear-to-b from-gray-100 to-gray-50 rounded-full border border-gray-200 z-10" />
+              <div className="absolute inset-0 bg-white z-0 border-x border-gray-200" />
             </div>
 
             {/* Bottom Section — Attendee + QR */}
@@ -267,7 +267,7 @@ function PassContent() {
                 </div>
 
                 {/* QR Code — from image URL or placeholder */}
-                <div className="flex-shrink-0 flex flex-col items-center">
+                <div className="shrink-0 flex flex-col items-center">
                   <div className="bg-white border-2 border-gray-100 rounded-xl p-2 shadow-sm">
                     {qrUrl ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
@@ -276,11 +276,11 @@ function PassContent() {
                         alt="Entry QR Code"
                         width={100}
                         height={100}
-                        className="w-[100px] h-[100px] rounded-lg object-contain"
+                        className="w-25 h-25 rounded-lg object-contain"
                         crossOrigin="anonymous"
                       />
                     ) : (
-                      <div className="w-[100px] h-[100px] bg-gray-50 rounded-lg flex flex-col items-center justify-center text-center p-2">
+                      <div className="w-25 h-25 bg-gray-50 rounded-lg flex flex-col items-center justify-center text-center p-2">
                         <p className="text-gray-400 text-[10px] font-medium leading-tight">
                           QR will be sent
                           <br />
