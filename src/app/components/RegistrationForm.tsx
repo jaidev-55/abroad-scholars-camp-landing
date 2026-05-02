@@ -107,6 +107,22 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
         return;
       }
 
+      // Log to Google Sheet (fire and forget)
+      fetch(
+        "https://script.google.com/macros/s/AKfycbwPFW-AlThNAlZk6TbavKF_fT-nksgI0TZMEOilUqv3O2XnFtxxG3yjqv7aAnwyVlDk/exec",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            country: formData.country || "",
+            slot: formData.slot || "No preference",
+          }),
+        },
+      ).catch(() => {});
+
       const firstName = formData.name.split(" ")[0];
       const params = new URLSearchParams({
         name: firstName,
@@ -118,6 +134,19 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
     } catch (err: any) {
       if (err?.name === "AbortError") {
         // Navigate anyway — registration likely succeeded
+        // ✅ Also log to sheet on timeout (registration likely went through)
+        fetch("https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            country: formData.country || "",
+            slot: formData.slot || "No preference",
+          }),
+        }).catch(() => {});
+
         const firstName = formData.name.split(" ")[0];
         const params = new URLSearchParams({
           name: firstName,
