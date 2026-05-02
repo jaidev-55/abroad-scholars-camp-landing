@@ -45,6 +45,9 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
     return newErrors;
   };
 
+  const SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbwPFW-AlThNAIZk6TbavKF_fT-nksgI0TZMEOilUqv3O2XnFtxxG3yjqv7aAnwyVlDk/exec";
+
   const handleBlur = (field: string) => {
     setFocusedField(null);
     setTouched((prev) => ({ ...prev, [field]: true }));
@@ -108,20 +111,18 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
       }
 
       // Log to Google Sheet (fire and forget)
-      fetch(
-        "https://script.google.com/macros/s/AKfycbwPFW-AlThNAlZk6TbavKF_fT-nksgI0TZMEOilUqv3O2XnFtxxG3yjqv7aAnwyVlDk/exec",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fullName: formData.name,
-            phone: formData.phone,
-            email: formData.email,
-            country: formData.country || "",
-            slot: formData.slot || "No preference",
-          }),
-        },
-      ).catch(() => {});
+      fetch(SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({
+          fullName: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          country: formData.country || "",
+          slot: formData.slot || "No preference",
+        }),
+      }).catch(() => {});
 
       const firstName = formData.name.split(" ")[0];
       const params = new URLSearchParams({
