@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
+
 import "./globals.css";
 import WhatsAppButton from "./components/WhatsappButton";
 
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
   },
 
   twitter: {
-    card: "summary_large_image", // keep this
+    card: "summary_large_image",
     title: "Free Study Abroad Education Fair — May 16, Coimbatore",
     description:
       "Get admissions, visa help & IELTS support — all in one place. FREE entry.",
@@ -77,7 +79,25 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans"
       >
+        {/* Google Ads / Analytics Tag */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17264874781"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-17264874781');
+          `}
+        </Script>
+
         {children}
+
         <WhatsAppButton />
       </body>
     </html>
