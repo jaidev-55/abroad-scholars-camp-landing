@@ -30,7 +30,7 @@ const steps: {
   {
     num: "03",
     title: "Attend the Camp",
-    desc: "Walk in on May 16 at Vivanta Coimbatore",
+    desc: "Walk in on Jun 13 at JC Residency, Madurai",
     icon: HiAcademicCap,
     color: "text-violet-600",
     bg: "bg-violet-50",

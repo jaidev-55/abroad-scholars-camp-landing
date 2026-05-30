@@ -11,7 +11,7 @@ const details = [
   {
     icon: FaCalendarAlt,
     label: "Date",
-    value: "Saturday, May 16, 2026",
+    value: "Saturday, Jun 13, 2026",
     color: "text-blue-600",
     bg: "bg-blue-100",
     ringColor: "ring-blue-200",
@@ -27,12 +27,12 @@ const details = [
   {
     icon: FaMapMarkerAlt,
     label: "Venue",
-    value: "Vivanta, Coimbatore",
-    subtext: "Avinashi Road, Coimbatore, Tamil Nadu",
+    value: "JC Residency, Madurai",
+    subtext: "KK Nagar, Madurai, Tamil Nadu",
     color: "text-rose-600",
     bg: "bg-rose-100",
     ringColor: "ring-rose-200",
-    link: "https://maps.google.com/?q=Vivanta+Coimbatore",
+    link: "https://maps.google.com/?q=JC+Residency+Madurai",
   },
   {
     icon: FaCheckCircle,

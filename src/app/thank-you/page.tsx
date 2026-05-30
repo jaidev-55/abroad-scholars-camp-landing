@@ -208,10 +208,10 @@ function ThankYouContent() {
   }, [fullName, phone]);
 
   const calendarUrl =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Abroad+Scholars+Free+Study+Fair&dates=20260516T043000Z/20260516T113000Z&location=Vivanta+Coimbatore,+Avinashi+Road&details=Free+Abroad+Education+Camp.+Meet+university+reps,+get+spot+admissions,+visa+help+and+more.";
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Abroad+Scholars+Free+Study+Fair&dates=20260613T043000Z/20260613T113000Z&location=JC+Residency,+Madurai&details=Free+Abroad+Education+Camp.+Meet+university+reps,+get+spot+admissions,+visa+help+and+more.";
 
   const shareText = encodeURIComponent(
-    "I just registered for the FREE Study Abroad Education Fair by Abroad Scholars! 🎓🌍\n\n📅 May 16, 2026\n📍 Vivanta, Coimbatore\n⏰ 10 AM – 5 PM\n\nRegister free → abroadscholars.in/camp",
+    "I just registered for the FREE Study Abroad Education Fair by Abroad Scholars! 🎓🌍\n\n📅 Jun 13, 2026\n📍 JC Residency, Madurai\n⏰ 10 AM – 5 PM\n\nRegister free → abroadscholars.in/camp",
   );
 
   const handleCopy = () => {
@@ -266,7 +266,7 @@ function ThankYouContent() {
                   </div>
                   <div>
                     <p className="text-gray-900 font-semibold text-sm">
-                      Saturday, May 16, 2026
+                      Saturday, Jun 13, 2026
                     </p>
                     <p className="text-gray-400 text-xs">Mark your calendar</p>
                   </div>
@@ -291,9 +291,9 @@ function ThankYouContent() {
                   </div>
                   <div>
                     <p className="text-gray-900 font-semibold text-sm">
-                      Vivanta, Coimbatore
+                      JC Residency, Madurai
                     </p>
-                    <p className="text-gray-400 text-xs">Avinashi Road</p>
+                    <p className="text-gray-400 text-xs">KK Nagar, Madurai</p>
                   </div>
                 </div>
               </div>

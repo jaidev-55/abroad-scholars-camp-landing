@@ -7,9 +7,10 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { Icon } from "./Icon";
-import CountdownTimer from "./CountdownTimer";
+
 import RegistrationForm from "./RegistrationForm";
 import ReactCountryFlag from "react-country-flag";
+import CountdownTimer from "./CountdownTimer";
 
 const HeroSection = () => {
   const countries = [
@@ -36,9 +37,11 @@ const HeroSection = () => {
                 <span className="relative inline-flex rounded-full h-full w-full bg-emerald-500" />
               </span>
               <span className="text-emerald-700 text-[10px] sm:text-xs font-semibold tracking-wide uppercase">
-                Free Event — May 16, Coimbatore
+                Free Event — Jun 13, Madurai
               </span>
             </div>
+
+            {/* Mobile form */}
             <div className="md:hidden mb-10">
               <div className="bg-white rounded-3xl shadow-xl shadow-gray-900/6 border border-gray-100 p-6 sm:p-8 mx-auto relative">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-blue-50 to-transparent rounded-tr-3xl rounded-bl-[60px] pointer-events-none" />
@@ -63,6 +66,7 @@ const HeroSection = () => {
                 </p>
               </div>
             </div>
+
             {/* Headline */}
             <h1 className="text-[1.6rem] sm:text-4xl md:text-[2.75rem] lg:text-5xl font-extrabold text-gray-900 leading-[1.15] mb-4 sm:mb-5 tracking-tight">
               Free Study Abroad
@@ -109,7 +113,7 @@ const HeroSection = () => {
               {[
                 {
                   icon: FaCalendarAlt,
-                  text: "May 16, Saturday",
+                  text: "Jun 13, Saturday",
                   color: "text-blue-500",
                 },
                 {
@@ -119,7 +123,7 @@ const HeroSection = () => {
                 },
                 {
                   icon: FaMapMarkerAlt,
-                  text: "Vivanta, Coimbatore",
+                  text: "JC Residency, Madurai",
                   color: "text-rose-400",
                 },
               ].map(({ icon, text, color }) => (
@@ -139,7 +143,7 @@ const HeroSection = () => {
             <CountdownTimer />
           </div>
 
-          {/* ─── Right — Form Card (visible on ALL screens) ─── */}
+          {/* ─── Right — Form Card (Desktop) ─── */}
           <div className="hidden md:block">
             <div className="bg-white rounded-3xl shadow-xl shadow-gray-900/6 border border-gray-100 p-6 sm:p-8 mx-auto relative">
               <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-blue-50 to-transparent rounded-tr-3xl rounded-bl-[60px] pointer-events-none" />

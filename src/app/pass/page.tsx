@@ -187,7 +187,7 @@ function PassContent() {
                     />
                   </div>
                   <p className="text-gray-900 font-semibold text-sm">
-                    Saturday, May 16, 2026
+                    Saturday, Jun 13, 2026
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -207,9 +207,9 @@ function PassContent() {
                   </div>
                   <div>
                     <p className="text-gray-900 font-semibold text-sm">
-                      Vivanta, Coimbatore
+                      JC Residency, Madurai
                     </p>
-                    <p className="text-gray-400 text-xs">Avinashi Road</p>
+                    <p className="text-gray-400 text-xs">KK Nagar, Madurai</p>
                   </div>
                 </div>
               </div>
@@ -314,7 +314,7 @@ function PassContent() {
             {/* Invite */}
             <a
               href={`https://wa.me/?text=${encodeURIComponent(
-                `Hey! I'm attending the FREE Study Abroad Education Fair by Abroad Scholars 🎓\n\n📅 May 16, 2026\n📍 Vivanta, Coimbatore\n⏰ 10 AM – 5 PM\n\nRegister free → abroadscholars.in/camp`,
+                `Hey! I'm attending the FREE Study Abroad Education Fair by Abroad Scholars 🎓\n\n📅 Jun 13, 2026\n📍 JC Residency, Madurai\n⏰ 10 AM – 5 PM\n\nRegister free → abroadscholars.in/camp`,
               )}`}
               target="_blank"
               rel="noopener noreferrer"

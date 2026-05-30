@@ -11,7 +11,7 @@ const CountdownTimer = () => {
   });
 
   useEffect(() => {
-    const eventDate = new Date("2026-05-16T10:00:00+05:30").getTime();
+    const eventDate = new Date("2026-06-13T10:00:00+05:30").getTime();
 
     const update = () => {
       const distance = eventDate - Date.now();
