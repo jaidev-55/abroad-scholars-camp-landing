@@ -78,7 +78,7 @@ const RegistrationForm = ({ compact = false }: { compact?: boolean }) => {
             phone: formData.phone,
             email: formData.email,
             country: formData.country,
-            notes: `Study Fair Registration — May 16, Coimbatore — Slot: ${formData.slot || "No preference"}`,
+            notes: `Study Fair Registration — Jun 13, Madurai — Slot: ${formData.slot || "No preference"}`,
             category: "ADMISSION",
           }),
         },
