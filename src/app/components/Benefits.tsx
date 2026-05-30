@@ -1,5 +1,4 @@
 import {
-  FaUniversity,
   FaComments,
   FaPassport,
   FaFileAlt,
