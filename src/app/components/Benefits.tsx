@@ -19,13 +19,6 @@ interface Benefit {
 
 const benefits: Benefit[] = [
   {
-    icon: FaUniversity,
-    title: "15+ University Reps",
-    desc: "Meet representatives from top international universities face-to-face",
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-  },
-  {
     icon: FaComments,
     title: "Spot Admissions",
     desc: "Get on-the-spot admission offers. Bring your transcripts!",
