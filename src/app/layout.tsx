@@ -44,6 +44,10 @@ export const metadata: Metadata = {
     canonical: "https://camp.abroadscholars.in",
   },
 
+  verification: {
+    google: "enJyZDEM5w3U0wIPq8lgfm34hlBCCMbmv36vA1SL4-o",
+  },
+
   openGraph: {
     title: "Free Study Abroad Education Fair — May 16, Coimbatore",
     description:
